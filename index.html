@@ -30,8 +30,25 @@
         .planet {
             position: absolute;
             animation: orbit 30s linear infinite;
-            background-color: #3b5998;
             border-radius: 50%;
+        }
+
+        .planet-1 {
+            width: 100px;
+            height: 100px;
+            background-color: #ff6347;
+        }
+
+        .planet-2 {
+            width: 150px;
+            height: 150px;
+            background-color: #4682b4;
+        }
+
+        .planet-3 {
+            width: 200px;
+            height: 200px;
+            background-color: #ffd700;
         }
 
         @keyframes orbit {
@@ -90,9 +107,9 @@
 </head>
 <body>
     <div class="universe-container">
-        <div class="planet" style="width: 100px; height: 100px; background-color: #ff6347;"></div>
-        <div class="planet" style="width: 150px; height: 150px; background-color: #4682b4;"></div>
-        <div class="planet" style="width: 200px; height: 200px; background-color: #ffd700;"></div>
+        <div class="planet planet-1"></div>
+        <div class="planet planet-2"></div>
+        <div class="planet planet-3"></div>
         <div class="text">Welcome to the Cosmic Stream!</div>
         <div class="stars"></div>
     </div>
