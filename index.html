@@ -1,108 +1,113 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cosmic Stream Overlay</title>
     <style>
         body {
             margin: 0;
+            padding: 0;
+            height: 100vh;
+            background: radial-gradient(circle, #1c1c1c, #000);
             overflow: hidden;
-            background: black;
+            position: relative;
         }
-        canvas {
+
+        .background {
             position: absolute;
-            top: 0;
-            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://cdn.pixabay.com/photo/2015/09/18/19/03/space-944682_960_720.jpg') center center/cover;
+            animation: galaxyMove 300s infinite linear;
         }
+
+        @keyframes galaxyMove {
+            from {background-position: 0 0;}
+            to {background-position: 1000px 1000px;}
+        }
+
+        .runes {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            color: white;
+            text-align: center;
+            opacity: 0.8;
+            animation: pulse 2s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from {opacity: 0.6;}
+            to {opacity: 1;}
+        }
+
+        .surprise {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 5rem;
+            color: #ffcc00;
+            opacity: 0;
+            animation: surprise 3s forwards;
+        }
+
+        @keyframes surprise {
+            0% { opacity: 0; transform: translateX(-50%) scale(0); }
+            50% { opacity: 1; transform: translateX(-50%) scale(1.5); }
+            100% { opacity: 0; transform: translateX(-50%) scale(0); }
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: starBlink 5s infinite linear;
+        }
+
+        @keyframes starBlink {
+            0% { opacity: 0.3; }
+            50% { opacity: 1; }
+            100% { opacity: 0.3; }
+        }
+
+        .star:nth-child(1) { top: 10%; left: 20%; width: 2px; height: 2px; animation-duration: 6s; }
+        .star:nth-child(2) { top: 15%; left: 25%; width: 2px; height: 2px; animation-duration: 8s; }
+        .star:nth-child(3) { top: 40%; left: 80%; width: 1px; height: 1px; animation-duration: 4s; }
+        /* Add more stars for variety */
+
     </style>
 </head>
 <body>
-    <canvas id="overlayCanvas"></canvas>
+
+    <div class="background"></div>
+
+    <div class="runes">
+        ✨ 💫 Cosmic Runes of Power 💫 ✨
+    </div>
+
+    <div class="surprise">
+        🌟 SURPRISE! 🌟
+    </div>
+
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <!-- Add more star divs here for a fuller look -->
+
     <script>
-        const canvas = document.getElementById('overlayCanvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        
-        const stars = [];
-        for (let i = 0; i < 100; i++) {
-            stars.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                radius: Math.random() * 2,
-                speed: Math.random() * 0.5 + 0.2
-            });
+        // Function to trigger the surprise effect
+        function triggerSurprise() {
+            const surpriseElement = document.querySelector('.surprise');
+            surpriseElement.style.animation = 'surprise 3s forwards';
         }
-        
-        function drawStars() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = 'white';
-            for (const star of stars) {
-                ctx.beginPath();
-                ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-        
-        function updateStars() {
-            for (const star of stars) {
-                star.y += star.speed;
-                if (star.y > canvas.height) {
-                    star.y = 0;
-                    star.x = Math.random() * canvas.width;
-                }
-            }
-        }
-        
-        function animate() {
-            drawStars();
-            updateStars();
-            requestAnimationFrame(animate);
-        }
-        
-        animate();
-        
-        // Glowing Rune Effects
-        function drawRune(x, y, size, color) {
-            ctx.strokeStyle = color;
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            for (let i = 0; i < 6; i++) {
-                const angle = (Math.PI / 3) * i;
-                const nextAngle = (Math.PI / 3) * (i + 1);
-                ctx.moveTo(x + Math.cos(angle) * size, y + Math.sin(angle) * size);
-                ctx.lineTo(x + Math.cos(nextAngle) * size, y + Math.sin(nextAngle) * size);
-            }
-            ctx.stroke();
-        }
-        
-        const runes = [];
-        for (let i = 0; i < 5; i++) {
-            runes.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                size: Math.random() * 40 + 20,
-                color: `hsl(${Math.random() * 360}, 100%, 70%)`,
-                glow: 0
-            });
-        }
-        
-        function drawRunes() {
-            for (const rune of runes) {
-                ctx.shadowBlur = rune.glow;
-                ctx.shadowColor = rune.color;
-                drawRune(rune.x, rune.y, rune.size, rune.color);
-                rune.glow = (rune.glow + 1) % 30;
-            }
-        }
-        
-        function animateRunes() {
-            drawStars();
-            updateStars();
-            drawRunes();
-            requestAnimationFrame(animateRunes);
-        }
-        
-        animateRunes();
+
+        // Example: Trigger surprise when something happens
+        setTimeout(triggerSurprise, 5000); // 5 seconds after page load
     </script>
+
 </body>
 </html>
