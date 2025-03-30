@@ -1,4 +1,5 @@
-<!DOCTYPE html><html>
+<!DOCTYPE html>
+<html>
 <head>
     <title>Cosmic Stream Overlay</title>
     <style>
@@ -20,44 +21,88 @@
         const canvas = document.getElementById('overlayCanvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;const stars = [];
-    for (let i = 0; i < 100; i++) {
-        stars.push({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            radius: Math.random() * 2,
-            speed: Math.random() * 0.5 + 0.2
-        });
-    }
-    
-    function drawStars() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = 'white';
-        for (const star of stars) {
-            ctx.beginPath();
-            ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-            ctx.fill();
+        canvas.height = window.innerHeight;
+        
+        const stars = [];
+        for (let i = 0; i < 100; i++) {
+            stars.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 2,
+                speed: Math.random() * 0.5 + 0.2
+            });
         }
-    }
-    
-    function updateStars() {
-        for (const star of stars) {
-            star.y += star.speed;
-            if (star.y > canvas.height) {
-                star.y = 0;
-                star.x = Math.random() * canvas.width;
+        
+        function drawStars() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'white';
+            for (const star of stars) {
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                ctx.fill();
             }
         }
-    }
-    
-    function animate() {
-        drawStars();
-        updateStars();
-        requestAnimationFrame(animate);
-    }
-    
-    animate();
-</script>
-
+        
+        function updateStars() {
+            for (const star of stars) {
+                star.y += star.speed;
+                if (star.y > canvas.height) {
+                    star.y = 0;
+                    star.x = Math.random() * canvas.width;
+                }
+            }
+        }
+        
+        function animate() {
+            drawStars();
+            updateStars();
+            requestAnimationFrame(animate);
+        }
+        
+        animate();
+        
+        // Glowing Rune Effects
+        function drawRune(x, y, size, color) {
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            for (let i = 0; i < 6; i++) {
+                const angle = (Math.PI / 3) * i;
+                const nextAngle = (Math.PI / 3) * (i + 1);
+                ctx.moveTo(x + Math.cos(angle) * size, y + Math.sin(angle) * size);
+                ctx.lineTo(x + Math.cos(nextAngle) * size, y + Math.sin(nextAngle) * size);
+            }
+            ctx.stroke();
+        }
+        
+        const runes = [];
+        for (let i = 0; i < 5; i++) {
+            runes.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                size: Math.random() * 40 + 20,
+                color: `hsl(${Math.random() * 360}, 100%, 70%)`,
+                glow: 0
+            });
+        }
+        
+        function drawRunes() {
+            for (const rune of runes) {
+                ctx.shadowBlur = rune.glow;
+                ctx.shadowColor = rune.color;
+                drawRune(rune.x, rune.y, rune.size, rune.color);
+                rune.glow = (rune.glow + 1) % 30;
+            }
+        }
+        
+        function animateRunes() {
+            drawStars();
+            updateStars();
+            drawRunes();
+            requestAnimationFrame(animateRunes);
+        }
+        
+        animateRunes();
+    </script>
 </body>
 </html>
