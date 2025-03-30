@@ -5,61 +5,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cosmic Starting Soon</title>
     <style>
-        body {
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
             height: 100vh;
-            background: radial-gradient(circle, #1b1b2f, #000);
+            background: radial-gradient(circle, #111, #000);
             overflow: hidden;
             position: relative;
         }
 
         .background {
             position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            background: url('https://cdn.pixabay.com/photo/2015/09/18/19/03/space-944682_960_720.jpg') center center/cover;
-            animation: cosmicMove 300s infinite linear;
+            background: url('https://cdn.pixabay.com/photo/2015/09/18/19/03/space-944682_960_720.jpg') no-repeat center center/cover;
+            animation: nebulaMove 400s infinite linear;
             z-index: -1;
         }
 
-        @keyframes cosmicMove {
-            from { background-position: 0 0; }
-            to { background-position: 1000px 1000px; }
+        @keyframes nebulaMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 1000px 1000px; }
+        }
+
+        .cosmic-runes {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 3rem;
+            color: #fff;
+            text-align: center;
+            opacity: 0.8;
+            animation: floatRunes 10s infinite ease-in-out;
+        }
+
+        @keyframes floatRunes {
+            0% { transform: translate(-50%, -30%) rotate(0deg); }
+            50% { transform: translate(-50%, -10%) rotate(180deg); opacity: 1; }
+            100% { transform: translate(-50%, -30%) rotate(360deg); }
         }
 
         .explosion {
             position: absolute;
             top: 40%;
-            right: 10%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
             width: 200px;
             height: 200px;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.7), rgba(255, 0, 0, 0.5));
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.9), rgba(255, 0, 0, 0.4));
             border-radius: 50%;
-            animation: explode 3s infinite;
+            animation: cosmicBurst 5s infinite ease-out;
         }
 
-        @keyframes explode {
+        @keyframes cosmicBurst {
             0% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(1.5); opacity: 1; }
+            50% { transform: scale(1.8); opacity: 1; }
             100% { transform: scale(1); opacity: 0.5; }
-        }
-
-        .runic-symbols {
-            position: absolute;
-            top: 30%;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 4rem;
-            color: white;
-            opacity: 0.9;
-            animation: floatSymbols 5s infinite ease-in-out;
-        }
-
-        @keyframes floatSymbols {
-            0% { transform: translate(-50%, -20%) rotate(0deg); opacity: 0.8; }
-            50% { transform: translate(-50%, -10%) rotate(180deg); opacity: 1; }
-            100% { transform: translate(-50%, -20%) rotate(360deg); opacity: 0.8; }
         }
 
         .text {
@@ -68,16 +76,16 @@
             left: 50%;
             transform: translate(-50%, -50%);
             font-size: 4rem;
-            color: white;
+            color: #fff;
             font-family: 'Arial', sans-serif;
             text-align: center;
             z-index: 10;
-            animation: textGlow 2s infinite alternate;
+            animation: textPulse 2s infinite alternate;
         }
 
-        @keyframes textGlow {
-            0% { text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff; }
-            100% { text-shadow: 0 0 30px #ff00ff, 0 0 50px #ff00ff; }
+        @keyframes textPulse {
+            0% { text-shadow: 0 0 20px #ff00ff, 0 0 40px #ff00ff; }
+            100% { text-shadow: 0 0 60px #ff00ff, 0 0 120px #ff00ff; }
         }
 
         .star {
@@ -93,21 +101,35 @@
             100% { opacity: 0.3; }
         }
 
-        .star:nth-child(1) { top: 10%; left: 20%; width: 3px; height: 3px; animation-duration: 6s; }
-        .star:nth-child(2) { top: 15%; left: 25%; width: 2px; height: 2px; animation-duration: 8s; }
+        .star:nth-child(1) { top: 5%; left: 10%; width: 2px; height: 2px; animation-duration: 6s; }
+        .star:nth-child(2) { top: 15%; left: 30%; width: 3px; height: 3px; animation-duration: 8s; }
         .star:nth-child(3) { top: 40%; left: 80%; width: 1px; height: 1px; animation-duration: 4s; }
-        /* Add more stars for variety */
+        .asteroid {
+            position: absolute;
+            background: #777;
+            border-radius: 50%;
+            animation: asteroidMove 10s infinite ease-in-out;
+        }
+
+        @keyframes asteroidMove {
+            0% { transform: translateX(-200px) translateY(-200px); }
+            50% { transform: translateX(1000px) translateY(500px); }
+            100% { transform: translateX(-200px) translateY(-200px); }
+        }
+
+        .asteroid:nth-child(4) { width: 40px; height: 40px; top: 30%; left: 15%; }
+        .asteroid:nth-child(5) { width: 50px; height: 50px; top: 50%; left: 70%; }
     </style>
 </head>
 <body>
 
     <div class="background"></div>
 
-    <div class="explosion"></div>
-
-    <div class="runic-symbols">
-        ✨ 💫 Cosmic Runes of Power 💫 ✨
+    <div class="cosmic-runes">
+        ✨💫 Cosmic Runes of Power 💫✨
     </div>
+
+    <div class="explosion"></div>
 
     <div class="text">
         STARTING SOON
@@ -116,18 +138,20 @@
     <div class="star"></div>
     <div class="star"></div>
     <div class="star"></div>
-    <!-- Add more stars for variety -->
+    <div class="asteroid"></div>
+    <div class="asteroid"></div>
 
     <script>
-        // Function to trigger animations, like surprise effects
-        function triggerExplosion() {
-            const explosionElement = document.querySelector('.explosion');
-            explosionElement.style.animation = 'explode 3s infinite';
+        // Trigger cosmic event (explosion, for example)
+        function triggerCosmicEvent() {
+            const explosion = document.querySelector('.explosion');
+            explosion.style.animation = 'cosmicBurst 5s infinite';
         }
 
-        // Example: Trigger explosion when needed
-        setTimeout(triggerExplosion, 5000); // 5 seconds after page load
+        // For testing: Trigger cosmic event after 3 seconds
+        setTimeout(triggerCosmicEvent, 3000);
     </script>
 
 </body>
 </html>
+
