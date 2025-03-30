@@ -3,118 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Awe-Inspiring Cosmic Hexagon</title>
+    <title>The Cosmic Universe</title>
     <style>
         body {
             margin: 0;
-            padding: 0;
             overflow: hidden;
-            background: #000;
-            font-family: 'Arial', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background-color: #000;
             height: 100vh;
-            color: white;
-            font-size: 24px;
-            text-align: center;
-            position: relative;
-        }
-
-        .hexagon {
-            width: 300px;
-            height: 300px;
-            background-color: rgba(255, 255, 255, 0.2);
-            position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
-            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-            animation: rotate 30s linear infinite, pulse 1.5s infinite alternate;
         }
 
-        .hexagon::before {
-            content: "PORTAL";
-            position: absolute;
-            font-size: 50px;
-            font-weight: bold;
-            color: #fff;
-            text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.8);
-        }
-
-        @keyframes rotate {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-                box-shadow: 0 0 50px 10px rgba(0, 255, 255, 0.8);
-            }
-            100% {
-                transform: scale(1.2);
-                box-shadow: 0 0 80px 20px rgba(0, 255, 255, 0.9);
-            }
-        }
-
-        .stars {
+        #universe {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('https://cdn.pixabay.com/photo/2017/08/30/03/25/space-2695569_960_720.jpg') repeat center center;
-            animation: starMovement 60s linear infinite;
-            z-index: -1;
         }
 
-        @keyframes starMovement {
-            0% {
-                background-position: 0 0;
-            }
-            100% {
-                background-position: 500px 500px;
-            }
-        }
-        
-        .glow {
+        #hexagon {
             position: absolute;
-            top: 20%;
-            left: 20%;
-            right: 20%;
-            bottom: 20%;
+            width: 300px;
+            height: 300px;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
             background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            animation: glowEffect 2s infinite alternate;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 40px;
+            font-family: 'Arial', sans-serif;
+            text-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+            animation: rotate 60s linear infinite, pulse 3s infinite alternate;
         }
 
-        @keyframes glowEffect {
-            0% {
-                opacity: 0.4;
-            }
-            100% {
-                opacity: 0.8;
-            }
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
-        h1 {
-            font-size: 36px;
-            color: #fff;
-            text-shadow: 0 0 20px rgba(0, 255, 255, 1);
-            z-index: 1;
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 100px 15px rgba(0, 255, 255, 0.7); }
+            100% { transform: scale(1.1); box-shadow: 0 0 150px 25px rgba(0, 255, 255, 0.9); }
+        }
+
+        #starfield {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: transparent;
+            z-index: -1;
         }
     </style>
 </head>
 <body>
-    <div class="stars"></div>
-    <div class="hexagon">
-        <div class="glow"></div>
-        <h1>Welcome to the Cosmic Portal</h1>
-    </div>
+    <div id="universe"></div>
+    <div id="hexagon">PORTAL</div>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+    <script>
+        particlesJS('universe', {
+            particles: {
+                number: { value: 500, density: { enable: true, value_area: 1000 } },
+                shape: { type: 'circle' },
+                opacity: { value: 0.2, random: true, anim: { enable: true, speed: 0.5, opacity_min: 0.1 } },
+                size: { value: 3, random: true, anim: { enable: true, speed: 1, size_min: 0.1 } },
+                line_linked: { enable: true, distance: 150, color: '#ffffff', opacity: 0.1, width: 1 }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' } }
+            },
+            retina_detect: true
+        });
+    </script>
 </body>
 </html>
+
