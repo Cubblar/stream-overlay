@@ -3,83 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Cosmic Universe</title>
+    <title>Cosmic Universe Overlay</title>
     <style>
-        body {
+        body, html {
             margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
             overflow: hidden;
-            background-color: #000;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background: #000;
         }
-
-        #universe {
+        
+        .universe-container {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-        }
-
-        #hexagon {
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-            background: rgba(255, 255, 255, 0.1);
             display: flex;
             justify-content: center;
             align-items: center;
-            color: white;
-            font-size: 40px;
-            font-family: 'Arial', sans-serif;
-            text-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
-            animation: rotate 60s linear infinite, pulse 3s infinite alternate;
+            flex-direction: column;
+            z-index: -1;
         }
 
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .planet {
+            position: absolute;
+            animation: orbit 30s linear infinite;
+            background-color: #3b5998;
+            border-radius: 50%;
+        }
+
+        @keyframes orbit {
+            0% {
+                transform: rotate(0deg) translateX(200px) rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg) translateX(200px) rotate(-360deg);
+            }
+        }
+
+        .text {
+            font-family: 'Arial', sans-serif;
+            color: white;
+            font-size: 50px;
+            text-align: center;
+            z-index: 1;
+            animation: pulse 3s ease-in-out infinite;
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 100px 15px rgba(0, 255, 255, 0.7); }
-            100% { transform: scale(1.1); box-shadow: 0 0 150px 25px rgba(0, 255, 255, 0.9); }
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
         }
 
-        #starfield {
+        .stars {
             position: absolute;
-            width: 100%;
-            height: 100%;
             top: 0;
             left: 0;
-            background-color: transparent;
-            z-index: -1;
+            width: 100%;
+            height: 100%;
+            background: url('https://cdn.pixabay.com/photo/2016/11/21/14/15/space-1840286_960_720.jpg') repeat;
+            z-index: -2;
+            animation: starfield 100s infinite linear;
+        }
+
+        @keyframes starfield {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 2000px 2000px;
+            }
         }
     </style>
 </head>
 <body>
-    <div id="universe"></div>
-    <div id="hexagon">PORTAL</div>
-    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
-    <script>
-        particlesJS('universe', {
-            particles: {
-                number: { value: 500, density: { enable: true, value_area: 1000 } },
-                shape: { type: 'circle' },
-                opacity: { value: 0.2, random: true, anim: { enable: true, speed: 0.5, opacity_min: 0.1 } },
-                size: { value: 3, random: true, anim: { enable: true, speed: 1, size_min: 0.1 } },
-                line_linked: { enable: true, distance: 150, color: '#ffffff', opacity: 0.1, width: 1 }
-            },
-            interactivity: {
-                detect_on: 'canvas',
-                events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' } }
-            },
-            retina_detect: true
-        });
-    </script>
+    <div class="universe-container">
+        <div class="planet" style="width: 100px; height: 100px; background-color: #ff6347;"></div>
+        <div class="planet" style="width: 150px; height: 150px; background-color: #4682b4;"></div>
+        <div class="planet" style="width: 200px; height: 200px; background-color: #ffd700;"></div>
+        <div class="text">Welcome to the Cosmic Stream!</div>
+        <div class="stars"></div>
+    </div>
 </body>
 </html>
-
