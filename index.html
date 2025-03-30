@@ -3,155 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cosmic Starting Soon</title>
+    <title>Awe-Inspiring Cosmic Hexagon</title>
     <style>
-        * {
+        body {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            height: 100vh;
-            background: radial-gradient(circle, #111, #000);
             overflow: hidden;
+            background: #000;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+            font-size: 24px;
+            text-align: center;
             position: relative;
         }
 
-        .background {
+        .hexagon {
+            width: 300px;
+            height: 300px;
+            background-color: rgba(255, 255, 255, 0.2);
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            animation: rotate 30s linear infinite, pulse 1.5s infinite alternate;
+        }
+
+        .hexagon::before {
+            content: "PORTAL";
+            position: absolute;
+            font-size: 50px;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.8);
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 50px 10px rgba(0, 255, 255, 0.8);
+            }
+            100% {
+                transform: scale(1.2);
+                box-shadow: 0 0 80px 20px rgba(0, 255, 255, 0.9);
+            }
+        }
+
+        .stars {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('https://cdn.pixabay.com/photo/2015/09/18/19/03/space-944682_960_720.jpg') no-repeat center center/cover;
-            animation: nebulaMove 400s infinite linear;
+            background: url('https://cdn.pixabay.com/photo/2017/08/30/03/25/space-2695569_960_720.jpg') repeat center center;
+            animation: starMovement 60s linear infinite;
             z-index: -1;
         }
 
-        @keyframes nebulaMove {
-            0% { background-position: 0 0; }
-            100% { background-position: 1000px 1000px; }
+        @keyframes starMovement {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 500px 500px;
+            }
         }
-
-        .cosmic-runes {
+        
+        .glow {
             position: absolute;
             top: 20%;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 3rem;
+            left: 20%;
+            right: 20%;
+            bottom: 20%;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: glowEffect 2s infinite alternate;
+        }
+
+        @keyframes glowEffect {
+            0% {
+                opacity: 0.4;
+            }
+            100% {
+                opacity: 0.8;
+            }
+        }
+
+        h1 {
+            font-size: 36px;
             color: #fff;
-            text-align: center;
-            opacity: 0.8;
-            animation: floatRunes 10s infinite ease-in-out;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 1);
+            z-index: 1;
         }
-
-        @keyframes floatRunes {
-            0% { transform: translate(-50%, -30%) rotate(0deg); }
-            50% { transform: translate(-50%, -10%) rotate(180deg); opacity: 1; }
-            100% { transform: translate(-50%, -30%) rotate(360deg); }
-        }
-
-        .explosion {
-            position: absolute;
-            top: 40%;
-            left: 50%;
-            transform: translateX(-50%) translateY(-50%);
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.9), rgba(255, 0, 0, 0.4));
-            border-radius: 50%;
-            animation: cosmicBurst 5s infinite ease-out;
-        }
-
-        @keyframes cosmicBurst {
-            0% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(1.8); opacity: 1; }
-            100% { transform: scale(1); opacity: 0.5; }
-        }
-
-        .text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 4rem;
-            color: #fff;
-            font-family: 'Arial', sans-serif;
-            text-align: center;
-            z-index: 10;
-            animation: textPulse 2s infinite alternate;
-        }
-
-        @keyframes textPulse {
-            0% { text-shadow: 0 0 20px #ff00ff, 0 0 40px #ff00ff; }
-            100% { text-shadow: 0 0 60px #ff00ff, 0 0 120px #ff00ff; }
-        }
-
-        .star {
-            position: absolute;
-            background: white;
-            border-radius: 50%;
-            animation: starTwinkle 5s infinite linear;
-        }
-
-        @keyframes starTwinkle {
-            0% { opacity: 0.3; }
-            50% { opacity: 1; }
-            100% { opacity: 0.3; }
-        }
-
-        .star:nth-child(1) { top: 5%; left: 10%; width: 2px; height: 2px; animation-duration: 6s; }
-        .star:nth-child(2) { top: 15%; left: 30%; width: 3px; height: 3px; animation-duration: 8s; }
-        .star:nth-child(3) { top: 40%; left: 80%; width: 1px; height: 1px; animation-duration: 4s; }
-        .asteroid {
-            position: absolute;
-            background: #777;
-            border-radius: 50%;
-            animation: asteroidMove 10s infinite ease-in-out;
-        }
-
-        @keyframes asteroidMove {
-            0% { transform: translateX(-200px) translateY(-200px); }
-            50% { transform: translateX(1000px) translateY(500px); }
-            100% { transform: translateX(-200px) translateY(-200px); }
-        }
-
-        .asteroid:nth-child(4) { width: 40px; height: 40px; top: 30%; left: 15%; }
-        .asteroid:nth-child(5) { width: 50px; height: 50px; top: 50%; left: 70%; }
     </style>
 </head>
 <body>
-
-    <div class="background"></div>
-
-    <div class="cosmic-runes">
-        ✨💫 Cosmic Runes of Power 💫✨
+    <div class="stars"></div>
+    <div class="hexagon">
+        <div class="glow"></div>
+        <h1>Welcome to the Cosmic Portal</h1>
     </div>
-
-    <div class="explosion"></div>
-
-    <div class="text">
-        STARTING SOON
-    </div>
-
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="asteroid"></div>
-    <div class="asteroid"></div>
-
-    <script>
-        // Trigger cosmic event (explosion, for example)
-        function triggerCosmicEvent() {
-            const explosion = document.querySelector('.explosion');
-            explosion.style.animation = 'cosmicBurst 5s infinite';
-        }
-
-        // For testing: Trigger cosmic event after 3 seconds
-        setTimeout(triggerCosmicEvent, 3000);
-    </script>
-
 </body>
 </html>
-
